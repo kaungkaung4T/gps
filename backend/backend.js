@@ -3,7 +3,17 @@
 
 
 let express = require("express");
+let mysql = require("mysql");
+
 let app = express();
+
+
+mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "gps"
+})
 
 
 app.get("/home", fun);
