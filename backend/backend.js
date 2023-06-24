@@ -7,6 +7,7 @@ let mysql = require("mysql");
 
 let app = express();
 
+app.use(express.json());
 
 const db = mysql.createConnection({
     host: "localhost",
@@ -31,6 +32,20 @@ function db_page (request, response) {
 
 
 
+app.post("/create", post);
+
+function post (request, response) {
+    const sql = "INSERT INTO user (`name`) VALUES (?)";
+    const values = [
+        request.body.name
+    ]
+    db.query(sql, [values], create_db);
+
+    function create_db(error, data) {
+        if (error) return response.json(error);
+        return response.json(data);
+    }
+}
 
 
 

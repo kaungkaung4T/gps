@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import axios from 'axios'
 
 function App() {
 
   const [data, setData] = useState([])
+  const [name, setName] = useState('')
 
   useEffect(fun, [])
 
@@ -13,11 +15,28 @@ function App() {
     .then(d => setData(d))
   }
 
+  function submit (e) {
+    // e.preventDefault();
+    axios.post("/create", {name})
+    .then(res => console.log(res.json()))
+    .catch(err => console.log(err))
+  }
+
+
   return (
 
-    <div>
+    <div style={{width: "170px", margin: "auto"}}>
+      <br></br>
+      <br></br>
+      <br></br>
 
-<button className="btn btn-sm btn-primary">SUBMIT</button>
+
+        <form onSubmit={submit}>
+          <label>Name</label>
+          <input type='text' className='form-control' onChange={e => setName(e.target.value)} style={{width: "270px", marginBottom: "20px", marginTop: "10px"}} />
+        <button className="btn btn-sm btn-primary">SUBMIT</button>
+        </form>
+
 
 {/* {JSON.stringify(data)} */}
       {/* {data.name} */}
@@ -32,6 +51,7 @@ function App() {
         <p key={i}>{d.name}</p>
       ))
       }
+
 
 
     </div>
