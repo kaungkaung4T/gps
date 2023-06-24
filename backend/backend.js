@@ -8,7 +8,7 @@ let mysql = require("mysql");
 let app = express();
 
 
-mysql.createConnection({
+const db = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
@@ -16,10 +16,27 @@ mysql.createConnection({
 })
 
 
+
+app.get("/db", db_page);
+
+function db_page (request, response) {
+    const sql = "SELECT * FROM user";
+    db.query(sql, db_item);
+
+    function db_item(error, data) {
+        if (error) return response.json("Error");
+        return response.json(data);
+    }
+}
+
+
+
+
+
+
+
+
 app.get("/home", fun);
-
-
-
 
 function fun (request, response) {
     response.json({

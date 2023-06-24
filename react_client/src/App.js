@@ -15,7 +15,7 @@ function App() {
   return (
 
     <div>
-
+{/* {JSON.stringify(data)} */}
       {data.name}
       <br></br>
       <br></br>
