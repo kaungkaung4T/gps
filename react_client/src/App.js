@@ -34,6 +34,7 @@ function App() {
         <form onSubmit={submit}>
           <label>Name</label>
           <input type='text' className='form-control' onChange={e => setName(e.target.value)} style={{width: "270px", marginBottom: "20px", marginTop: "10px"}} />
+          <input type='file' accept='video/*' className='form-control' onChange={e => setName(e.target.value)} style={{width: "270px", marginBottom: "20px", marginTop: "10px"}} required />
         <button className="btn btn-sm btn-primary">SUBMIT</button>
         </form>
 
