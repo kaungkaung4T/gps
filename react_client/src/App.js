@@ -26,7 +26,10 @@ function App() {
   function submit (e) {
     e.preventDefault();
     axios.post("/create", {name})
-    .then( (data) => console.log(data))
+    .then( (data) => {
+      console.log(data)
+      window.location.reload();
+    })
     .catch(err => console.log(err))
     window.location.reload();
   }
