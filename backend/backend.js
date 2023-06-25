@@ -4,6 +4,8 @@
 
 let express = require("express");
 let mysql = require("mysql");
+let ffmpeg = require('fluent-ffmpeg');
+
 
 let app = express();
 
@@ -35,6 +37,8 @@ function db_page (request, response) {
 app.post("/create", post);
 
 function post (request, response) {
+    
+
     const sql = "INSERT INTO user (`name`) VALUES (?)";
     const values = [
         request.body.name
@@ -47,17 +51,31 @@ function post (request, response) {
     }
 }
 
+const command = ffmpeg();
+    command.ffprobe('hello.mp4', video);
 
+    function video (error, data) {
+        
+        console.log(data);
+    }
 
 
 
 app.get("/home", fun);
 
 function fun (request, response) {
-    response.json({
-        "name": "kaungMinKhant",
-        "work": "SE"
-    });
+    const command = ffmpeg();
+    command.ffprobe('/backend/hello.mp4', video);
+
+    function video (error, data) {
+        if (error) response.json(error);
+        return response.json(data);
+    }
+
+    // response.json({
+    //     "name": "kaungMinKhant",
+    //     "work": "SE"
+    // });
 }
 
 
