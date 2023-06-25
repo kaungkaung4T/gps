@@ -6,8 +6,24 @@ let express = require("express");
 let mysql = require("mysql");
 let ffmpeg = require('fluent-ffmpeg');
 let fs = require("fs");
-var ffprobe = require('ffprobe'),
+let ffprobe = require('ffprobe'),
 ffprobeStatic = require('ffprobe-static');
+let exif = require('exiftool');
+
+
+const exiftool = require('node-exiftool')
+const exiftoolBin = require('dist-exiftool')
+const ep = new exiftool.ExiftoolProcess(exiftoolBin)
+
+ep
+  .open()
+
+  .then(() => ep.readMetadata('sample1.mp4', ['-File:all']))
+  .then(console.log, console.error)
+  .then(() => ep.close())
+  .catch(console.error)
+
+
 
 let app = express();
 
@@ -56,7 +72,18 @@ function post (request, response) {
 
 
  
-
+// fs.readFile('sample1.mp4', function (err, data) {
+//     if (err)
+//         console.log(err);
+//     else {
+//       exif.metadata(data, function (err, metadata) {
+//         if (err)
+//             throw err;
+//         else
+//           console.log(metadata);
+//       });
+//     }
+//   });
 
 
 
