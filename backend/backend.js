@@ -16,7 +16,10 @@ const exiftoolBin = require('dist-exiftool')
 const ep = new exiftool.ExiftoolProcess(exiftoolBin)
 
 
+let livereload = require("livereload");
+let connectLiveReload = require("connect-livereload");
 
+let liveReloadServer = livereload.createServer();
 
 
 
@@ -75,27 +78,34 @@ function db_page (request, response) {
 app.post("/create", post);
 
 function post (request, response) {
-    
 
-    const sql = "INSERT INTO user (`name`) VALUES (?)";
-    const values = [
-        request.body.name
-    ]
+    let j_data = ep.open()
+    
+    let open = j_data.then(() => ep.readMetadata(request.body.name, ['-File:all']))
+    
+    let close = open.then( (data) => { 
+        GPSLatitude = data['data'][0]['GPSLatitude']
+        GPSLongitude = data['data'][0]['GPSLongitude']
+
+        const sql = "INSERT INTO user (`name`, `latitude`, `longitude`) VALUES (?)";
+        const values = [
+            request.body.name,
+            GPSLatitude,
+            GPSLongitude,
+        ]
     db.query(sql, [values], create_db);
 
     function create_db(error, data) {
         if (error) return response.json(error);
-        
-        ep
-        .open()
+        return response.json(data);
 
-        .then(() => ep.readMetadata(request.body.name, ['-File:all']))
-        
-        .then( (data) => response.json(data) )
-
-        .then(() => ep.close())
-        .catch(console.error)
     }
+} )
+
+    close.then(() => ep.close())
+    .catch(console.error)
+    return
+
 }
 
 
@@ -106,14 +116,20 @@ function post (request, response) {
 app.get("/home", fun);
 
 function fun (request, response) {
+
+
     let j_data = ep.open()
     
     let open = j_data.then(() => ep.readMetadata('hello.mp4', ['-File:all']))
     
-    let gps = open.then( (data) => { return data['data'][0]['GPSPosition'] } )
-    response.json("")
+    open.then( function f (data) { return data['data'][0]['GPSLatitude'] })
+    
+
+    response.json("ee")
+
     open.then(() => ep.close())
     .catch(console.error)
+
 
     // ffprobe('sample1.mp4', { path: ffprobeStatic.path }, function (err, info) {
 
