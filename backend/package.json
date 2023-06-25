@@ -19,7 +19,8 @@
     "ffprobe-static": "^3.1.0",
     "fluent-ffmpeg": "^2.1.2",
     "mysql": "^2.18.1",
-    "node-exiftool": "^2.3.0"
+    "node-exiftool": "^2.3.0",
+    "piexifjs": "^1.0.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

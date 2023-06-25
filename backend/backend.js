@@ -25,6 +25,20 @@ ep
 
 
 
+// const piexifjs = require("piexifjs");
+
+// let filename1 = "hello.mp4";
+
+// let jpeg = fs.readFileSync(filename1);
+// let data = jpeg.toString("binary");
+
+
+// let exifObj = piexifjs.load(data);
+// console.log(exifObj);
+
+
+
+
 let app = express();
 
 app.use(express.json());
@@ -71,19 +85,6 @@ function post (request, response) {
 
 
 
- 
-// fs.readFile('sample1.mp4', function (err, data) {
-//     if (err)
-//         console.log(err);
-//     else {
-//       exif.metadata(data, function (err, metadata) {
-//         if (err)
-//             throw err;
-//         else
-//           console.log(metadata);
-//       });
-//     }
-//   });
 
 
 
