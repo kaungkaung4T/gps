@@ -24,7 +24,7 @@ const ep = new exiftool.ExiftoolProcess(exiftoolBin)
 ep
   .open()
 
-  .then(() => ep.readMetadata('my.jpg', ['-File:all']))
+  .then(() => ep.readMetadata('hello.mp4', ['-File:all']))
   .then(console.log, console.error)
   .then(() => ep.close())
   .catch(console.error)
@@ -97,10 +97,20 @@ function post (request, response) {
 app.get("/home", fun);
 
 function fun (request, response) {
-    ffprobe('sample1.mp4', { path: ffprobeStatic.path }, function (err, info) {
+    ep
+    .open()
 
-        response.json(info);
-      })
+    .then(() => ep.readMetadata('hello.mp4', ['-File:all']))
+    
+    .then( (data) => response.json(data) )
+
+    .then(() => ep.close())
+    .catch(console.error)
+
+    // ffprobe('sample1.mp4', { path: ffprobeStatic.path }, function (err, info) {
+
+    //     response.json(info);
+    //   })
 
     // response.json({
     //     "name": "kaungMinKhant",
