@@ -20,6 +20,7 @@
     "ffprobe": "^1.1.2",
     "ffprobe-static": "^3.1.0",
     "fluent-ffmpeg": "^2.1.2",
+    "geo-coordinates-parser": "^1.6.3",
     "livereload": "^0.9.3",
     "mysql": "^2.18.1",
     "node-exiftool": "^2.3.0",

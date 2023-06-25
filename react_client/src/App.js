@@ -36,34 +36,40 @@ function App() {
 
   return (
 
-    <div style={{width: "170px", margin: "auto"}}>
+    <div>
 
 
       <br></br>
       <br></br>
       <br></br>
 
-
+      <div style={{width: "170px", margin: "auto"}}>
         <form onSubmit={submit}>
           <label>Name</label>
           {/* <input type='text' className='form-control' onChange={e => setName(e.target.value)} style={{width: "270px", marginBottom: "20px", marginTop: "10px"}} /> */}
           <input type='file' accept='video/*' className='form-control' onChange={ () => setName(inputRef.current.files[0].name)} ref={inputRef} style={{width: "270px", marginBottom: "20px", marginTop: "10px"}} required />
         <button className="btn btn-sm btn-primary">SUBMIT</button>
         </form>
+        </div>
+
+        <br></br>
+      <br></br>
 
 
-        
+      <div style={{width: "470px", margin: "auto"}}>
         { 
       data.map((d, i) => (
 
-        <Map key={i} height={300} defaultCenter={[d.latitude, d.longitude]} defaultZoom={11}>
+        <Map key={i} height={300} defaultCenter={[d.latitude, d.longitude]} defaultZoom={5}>
       <Marker width={50} anchor={[d.latitude, d.longitude]} />
     </Map>
 
       ))
       }
-        
+      </div>
 
+
+        <div style={{width: "170px", margin: "auto"}}>
 
 {/* {JSON.stringify(data)} */}
       {/* {data.name} */}
@@ -77,14 +83,16 @@ function App() {
       data.map((d, i) => (
         <p key={i}>
 
-          {d.name}
-          {d.latitude}
-          {d.longitude}
+          {d.name}<br></br>
+          {d.latitude}<br></br>
+          {d.longitude}<br></br>
         
         </p>
 
       ))
       }
+    
+    </div>
 
 
 

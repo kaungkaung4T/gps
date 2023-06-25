@@ -20,7 +20,7 @@ let livereload = require("livereload");
 let connectLiveReload = require("connect-livereload");
 
 let liveReloadServer = livereload.createServer();
-
+const { convert } = require('geo-coordinates-parser');
 
 
 
@@ -83,21 +83,41 @@ function post (request, response) {
     
     let open = j_data.then(() => ep.readMetadata(request.body.name, ['-File:all']))
     
-    let close = open.then( (data) => { 
+    let close = open.then( (data) => {
+
         GPSLatitude = data['data'][0]['GPSLatitude']
         GPSLongitude = data['data'][0]['GPSLongitude']
 
-        GPSLatitude = GPSLatitude.replace(' ', '')
-        GPSLongitude = GPSLongitude.replace(' ', '')
+        // GPSLatitude = GPSLatitude.replace(/\s/g, ',')
+        // GPSLongitude = GPSLongitude.replace(/\s/g, ',')
+        GPSLatitude = GPSLatitude.replace('N', '')
+        GPSLatitude = GPSLatitude.replace('W', '')
+        GPSLatitude = GPSLatitude.replace('E', '')
+        GPSLatitude = GPSLatitude.replace('S', '')
+
+        GPSLongitude = GPSLongitude.replace('N', '')
+        GPSLongitude = GPSLongitude.replace('W', '')
+        GPSLongitude = GPSLongitude.replace('E', '')
+        GPSLongitude = GPSLongitude.replace('S', '')
 
         GPSLatitude = GPSLatitude.replace('deg', '°')
         GPSLongitude = GPSLongitude.replace('deg', '°')
+
+        // GPSLatitude = GPSLatitude.split(' ')
+        // GPSLongitude = GPSLongitude.split(' ')
+
+        
+        // GPSLatitude = ConvertDMSToDD(GPSLatitude[0], GPSLatitude[1], GPSLatitude[2], GPSLatitude[3])
+        // GPSLongitude = ConvertDMSToDD(GPSLongitude[0], GPSLongitude[1], GPSLongitude[2], GPSLongitude[3])
+
+        let converted;
+        converted = convert(`${GPSLatitude}, ${GPSLongitude}`);
         
         const sql = "INSERT INTO user (`name`, `latitude`, `longitude`) VALUES (?)";
         const values = [
             request.body.name,
-            GPSLatitude,
-            GPSLongitude,
+            converted.decimalLatitude,
+            converted.decimalLongitude
         ]
     db.query(sql, [values], create_db);
 
@@ -110,7 +130,7 @@ function post (request, response) {
 
     close.then(() => ep.close())
     .catch(console.error)
-    return
+    return response
 
 }
 
@@ -122,7 +142,6 @@ function post (request, response) {
 app.get("/home", fun);
 
 function fun (request, response) {
-
 
     let j_data = ep.open()
     
