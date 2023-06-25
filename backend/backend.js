@@ -6,7 +6,8 @@ let express = require("express");
 let mysql = require("mysql");
 let ffmpeg = require('fluent-ffmpeg');
 let fs = require("fs");
-
+var ffprobe = require('ffprobe'),
+ffprobeStatic = require('ffprobe-static');
 
 let app = express();
 
@@ -53,31 +54,19 @@ function post (request, response) {
 }
 
 
-const filepath = 'hello.mp4'
-const stream = fs.createReadStream(filepath)
 
-const command = ffmpeg(stream);
+ 
 
-
-    command.ffprobe(video);
-
-    function video (error, data) {
-
-        console.dir(error);
-    }
 
 
 
 app.get("/home", fun);
 
 function fun (request, response) {
-    const command = ffmpeg();
-    command.ffprobe('\hello.mp4', video);
+    ffprobe('hello.mp4', { path: ffprobeStatic.path }, function (err, info) {
 
-    function video (error, data) {
-        if (error) response.json(error);
-        return response.json(data);
-    }
+        response.json(info);
+      })
 
     // response.json({
     //     "name": "kaungMinKhant",
