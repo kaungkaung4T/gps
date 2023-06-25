@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "dist-exiftool": "^10.53.0",
+    "exif-parser": "^0.1.12",
     "exiftool": "^0.0.3",
     "express": "^4.18.2",
     "ffprobe": "^1.1.2",

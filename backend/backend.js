@@ -15,10 +15,16 @@ const exiftool = require('node-exiftool')
 const exiftoolBin = require('dist-exiftool')
 const ep = new exiftool.ExiftoolProcess(exiftoolBin)
 
+
+
+
+
+
+
 ep
   .open()
 
-  .then(() => ep.readMetadata('sample1.mp4', ['-File:all']))
+  .then(() => ep.readMetadata('my.jpg', ['-File:all']))
   .then(console.log, console.error)
   .then(() => ep.close())
   .catch(console.error)
@@ -27,7 +33,7 @@ ep
 
 // const piexifjs = require("piexifjs");
 
-// let filename1 = "hello.mp4";
+// let filename1 = "my.jpg";
 
 // let jpeg = fs.readFileSync(filename1);
 // let data = jpeg.toString("binary");
