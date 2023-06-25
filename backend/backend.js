@@ -87,6 +87,12 @@ function post (request, response) {
         GPSLatitude = data['data'][0]['GPSLatitude']
         GPSLongitude = data['data'][0]['GPSLongitude']
 
+        GPSLatitude = GPSLatitude.replace(' ', '')
+        GPSLongitude = GPSLongitude.replace(' ', '')
+
+        GPSLatitude = GPSLatitude.replace('deg', '°')
+        GPSLongitude = GPSLongitude.replace('deg', '°')
+        
         const sql = "INSERT INTO user (`name`, `latitude`, `longitude`) VALUES (?)";
         const values = [
             request.body.name,

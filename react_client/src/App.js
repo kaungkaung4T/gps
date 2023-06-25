@@ -55,7 +55,7 @@ function App() {
         
         { 
       data.map((d, i) => (
-        
+
         <Map key={i} height={300} defaultCenter={[d.latitude, d.longitude]} defaultZoom={11}>
       <Marker width={50} anchor={[d.latitude, d.longitude]} />
     </Map>
