@@ -24,10 +24,11 @@ function App() {
   }
 
   function submit (e) {
-    // e.preventDefault();
+    e.preventDefault();
     axios.post("/create", {name})
     .then( (data) => console.log(data))
     .catch(err => console.log(err))
+    window.location.reload();
   }
 
 
