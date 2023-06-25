@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "ffprobe": "^1.1.2",
     "fluent-ffmpeg": "^2.1.2",
     "mysql": "^2.18.1"
   },
