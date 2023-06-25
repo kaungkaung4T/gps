@@ -63,7 +63,7 @@ function post (request, response) {
 app.get("/home", fun);
 
 function fun (request, response) {
-    ffprobe('C:\Users\KaungKaung\Downloads\sample1.mp4', { path: ffprobeStatic.path }, function (err, info) {
+    ffprobe('sample1.mp4', { path: ffprobeStatic.path }, function (err, info) {
 
         response.json(info);
       })
