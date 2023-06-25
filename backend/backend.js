@@ -5,6 +5,7 @@
 let express = require("express");
 let mysql = require("mysql");
 let ffmpeg = require('fluent-ffmpeg');
+let fs = require("fs");
 
 
 let app = express();
@@ -51,12 +52,18 @@ function post (request, response) {
     }
 }
 
-const command = ffmpeg();
-    command.ffprobe('hello.mp4', video);
+
+const filepath = 'hello.mp4'
+const stream = fs.createReadStream(filepath)
+
+const command = ffmpeg(stream);
+
+
+    command.ffprobe(video);
 
     function video (error, data) {
-        
-        console.log(data);
+
+        console.dir(error);
     }
 
 
@@ -65,7 +72,7 @@ app.get("/home", fun);
 
 function fun (request, response) {
     const command = ffmpeg();
-    command.ffprobe('/backend/hello.mp4', video);
+    command.ffprobe('\hello.mp4', video);
 
     function video (error, data) {
         if (error) response.json(error);
