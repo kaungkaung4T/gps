@@ -1,8 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios'
+// import DeckGL from '@deck.gl/react'
+// import {LineLayer} from '@deck.gl/layers'
+import { Map, Marker } from "pigeon-maps"
+
+
+
 
 function App() {
+
 
   const [data, setData] = useState([])
   const [name, setName] = useState('')
@@ -18,14 +25,19 @@ function App() {
   function submit (e) {
     // e.preventDefault();
     axios.post("/create", {name})
-    .then(res => console.log(res.json()))
+    .then( (data) => console.log(data))
     .catch(err => console.log(err))
   }
+
+
+
 
 
   return (
 
     <div style={{width: "170px", margin: "auto"}}>
+
+
       <br></br>
       <br></br>
       <br></br>
@@ -33,10 +45,16 @@ function App() {
 
         <form onSubmit={submit}>
           <label>Name</label>
-          <input type='text' className='form-control' onChange={e => setName(e.target.value)} style={{width: "270px", marginBottom: "20px", marginTop: "10px"}} />
+          {/* <input type='text' className='form-control' onChange={e => setName(e.target.value)} style={{width: "270px", marginBottom: "20px", marginTop: "10px"}} /> */}
           <input type='file' accept='video/*' className='form-control' onChange={e => setName(e.target.value)} style={{width: "270px", marginBottom: "20px", marginTop: "10px"}} required />
         <button className="btn btn-sm btn-primary">SUBMIT</button>
         </form>
+
+
+        
+        <Map height={300} defaultCenter={[1.358423, 103.989311]} defaultZoom={11}>
+      <Marker width={50} anchor={[1.358423, 103.989311]} />
+    </Map>
 
 
 {/* {JSON.stringify(data)} */}
@@ -47,7 +65,7 @@ function App() {
       {/* {data.work} */}
 
 
-      {
+      { 
       data.map((d, i) => (
         <p key={i}>{d.name}</p>
       ))

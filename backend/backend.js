@@ -65,7 +65,7 @@ function db_page (request, response) {
     db.query(sql, db_item);
 
     function db_item(error, data) {
-        if (error) return response.json("Error");
+
         return response.json(data);
     }
 }
@@ -85,7 +85,16 @@ function post (request, response) {
 
     function create_db(error, data) {
         if (error) return response.json(error);
-        return response.json(data);
+        
+        ep
+        .open()
+
+        .then(() => ep.readMetadata(request.body.name, ['-File:all']))
+        
+        .then( (data) => response.json(data) )
+
+        .then(() => ep.close())
+        .catch(console.error)
     }
 }
 
@@ -97,14 +106,13 @@ function post (request, response) {
 app.get("/home", fun);
 
 function fun (request, response) {
-    ep
-    .open()
-
-    .then(() => ep.readMetadata('hello.mp4', ['-File:all']))
+    let j_data = ep.open()
     
-    .then( (data) => response.json(data) )
-
-    .then(() => ep.close())
+    let open = j_data.then(() => ep.readMetadata('hello.mp4', ['-File:all']))
+    
+    let gps = open.then( (data) => { return data['data'][0]['GPSPosition'] } )
+    response.json("")
+    open.then(() => ep.close())
     .catch(console.error)
 
     // ffprobe('sample1.mp4', { path: ffprobeStatic.path }, function (err, info) {
