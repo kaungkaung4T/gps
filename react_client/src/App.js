@@ -53,7 +53,7 @@ function App() {
           <label>Name</label>
           {/* <input type='text' className='form-control' onChange={e => setName(e.target.value)} style={{width: "270px", marginBottom: "20px", marginTop: "10px"}} /> */}
           <input type='file' accept='video/*' className='form-control' onChange={ () => setName(inputRef.current.files[0].name)} ref={inputRef} style={{width: "270px", marginBottom: "20px", marginTop: "10px"}} required />
-          <label class='form-text' style={{marginBottom: "14px"}}>Need to refresh after submit. ^_^</label><br></br>
+          <label class='form-text' style={{marginBottom: "14px"}}>Need to refresh after submit.</label><br></br>
         <button className="btn btn-sm btn-primary">SUBMIT</button>
 
         </form>
